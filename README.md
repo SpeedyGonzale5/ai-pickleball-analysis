@@ -1,8 +1,6 @@
-# AI Sports Analysis Tool 🏓
+# AI Pickleball Analysis Tool 🏓
 
-An AI-powered sports analysis tool that provides real-time feedback and statistics overlay on sports videos using computer vision and pose detection. Originally inspired by viral sports analysis demos, this tool tracks players and displays detailed analytics.
-
-![Demo](https://github.com/user-attachments/assets/8d317156-f187-470c-8e26-5b7f7f60d6f2)
+An AI-powered pickleball analysis tool that overlays scores, shot info, and coaching feedback on top of your pickleball videos using OpenCV + MediaPipe.
 
 ## Features
 
@@ -13,6 +11,14 @@ An AI-powered sports analysis tool that provides real-time feedback and statisti
 - **Multiple Video Support**: Configure different video/analysis combinations
 - **Professional Overlay**: Clean, broadcast-style graphics overlay
 
+## Tech used:
+
+- **Python**: Runs the program
+- **OpenCV**: Reads your video, draws text/shapes, and saves the final MP4
+- **MediaPipe**: Detects human pose points so we can find player heads and place overlays
+- **NumPy**: Fast number crunching for coordinates and frame math
+- **JSON**: Your timeline of shots/feedback that we overlay on the video
+
 ## Quick Start
 
 ### Prerequisites
@@ -22,43 +28,36 @@ An AI-powered sports analysis tool that provides real-time feedback and statisti
 
 ### Installation
 
-1. **Clone the repository**
+1) Clone your repo
 ```bash
-git clone https://github.com/yourusername/ai-sports-analysis.git
-cd ai-sports-analysis
+git clone https://github.com/yourusername/ai-pickleball-analysis.git
+cd ai-pickleball-analysis
 ```
 
-2. **Run the setup script**
-```bash
-python setup.py
-```
-
-Or install manually:
+2) Install deps
 ```bash
 pip install -r requirements.txt
 ```
 
-### Usage
+### Run (TL;DR)
 
-1. **Prepare your files**
-   - Add your video file to the project directory
-   - Add the corresponding JSON analysis file (see format below)
+1) Put your files next to the script:
+- your video: `your_video.mp4`
+- your analysis: `your_analysis.json` (see schema below)
 
-2. **Configure the analysis**
-   - Open `pickleball.py`
-   - Update the `CONFIGS` dictionary with your files:
-   ```python
-   CONFIGS = {
-       1: {
-           'json_file': 'your_analysis.json',
-           'video_file': 'your_video.mp4',
-           'output_file': 'your_output.mp4'
-       }
-   }
-   ```
-   - Set `CURRENT_CONFIG = 1`
+2) Open `pickleball.py` and set one config:
+```python
+CONFIGS = {
+    1: {
+        'json_file': 'your_analysis.json',
+        'video_file': 'your_video.mp4',
+        'output_file': 'your_output.mp4'
+    }
+}
+CURRENT_CONFIG = 1
+```
 
-3. **Run the analysis**
+3) Run it
 ```bash
 python pickleball.py
 ```
@@ -94,7 +93,7 @@ The magic happens in the JSON analysis file. Here's the required format:
 ## Project Structure
 
 ```
-ai-sports-analysis/
+ai-pickleball-analysis/
 ├── pickleball.py          # Main analysis script
 ├── ball.py               # Alternative ball tracking script
 ├── requirements.txt      # Python dependencies
@@ -120,29 +119,10 @@ ai-sports-analysis/
 - Text font sizes and positioning
 - Animation colors and timing
 
-## Advanced Usage
+## Tips
 
-### Real-time Analysis
-
-To convert this into a real-time application:
-
-1. **Frame Management**: Send frames to AI analysis at 1 FPS (Gemini Video limitation)
-2. **API Integration**: Use Gemini API to return analysis content
-3. **Live Rendering**: Stream the overlay in real-time
-
-### Mobile App Development
-
-This codebase is perfect for iOS/Android app development:
-- Use the core analysis logic
-- Implement camera capture
-- Add real-time API calls
-- Create mobile-optimized UI
-
-## Dependencies
-
-- **OpenCV**: Video processing and overlay graphics
-- **MediaPipe**: Human pose detection and tracking
-- **NumPy**: Numerical operations and array handling
+- If the video won’t open, double-check the file name and location
+- For faster processing, use a smaller-resolution video or increase `process_every_n_frames`
 
 ## Performance Tips
 
